@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Form</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>{{ 'Edit Client' if client else 'Add Client' }}</h1>
+    <form method="post" action="/clients" enctype="multipart/form-data">
+        <label>First Name: <input type="text" name="first_name" required value="{{ client.first_name if client else '' }}"></label><br>
+        <label>Last Name: <input type="text" name="last_name" required value="{{ client.last_name if client else '' }}"></label><br>
+        <label>DOB: <input type="date" name="dob" value="{{ client.dob if client else '' }}"></label><br>
+        <label>Gender: <input type="text" name="gender" value="{{ client.gender if client else '' }}"></label><br>
+        <label>SSN: <input type="text" name="ssn" value="{{ client.ssn if client else '' }}"></label><br>
+        <label>Street Address: <input type="text" name="address" value="{{ client.address if client else '' }}"></label><br>
+        <label>City: <input type="text" name="city" value="{{ client.city if client else '' }}"></label><br>
+        <label>State: <input type="text" name="state" value="{{ client.state if client else '' }}"></label><br>
+        <label>ZIP: <input type="text" name="zip" value="{{ client.zip if client else '' }}"></label><br>
+        <label>Phone: <input type="text" name="phone" value="{{ client.phone if client else '' }}"></label><br>
+        <label>Email: <input type="email" name="email" value="{{ client.email if client else '' }}"></label><br>
+        <label>Insurance Carrier: <input type="text" name="insurance_carrier" value="{{ client.insurance_carrier if client else '' }}"></label><br>
+        <label>Policy Number: <input type="text" name="policy_number" value="{{ client.policy_number if client else '' }}"></label><br>
+        <label>Group Number: <input type="text" name="group_number" value="{{ client.group_number if client else '' }}"></label><br>
+        <label>Photo ID: <input type="file" name="photo_id" accept="image/*" capture="environment"></label><br>
+        {% if client and client.photo_id_path %}
+            <img src="{{ client.photo_id_path }}" alt="Photo ID" width="150"><br>
+        {% endif %}
+        <label>Insurance Card (Front): <input type="file" name="ins_card_front" accept="image/*" capture="environment"></label><br>
+        {% if client and client.ins_card_front_path %}
+            <img src="{{ client.ins_card_front_path }}" alt="Insurance Front" width="150"><br>
+        {% endif %}
+        <label>Insurance Card (Back): <input type="file" name="ins_card_back" accept="image/*" capture="environment"></label><br>
+        {% if client and client.ins_card_back_path %}
+            <img src="{{ client.ins_card_back_path }}" alt="Insurance Back" width="150"><br>
+        {% endif %}
+        <div id="drop-offs">
+            {% if drop_offs %}
+                {% for d in drop_offs %}
+                <label>Drop-off {{ loop.index }}: <input type="text" name="drop_off_{{ loop.index }}" value="{{ d.address }}"></label><br>
+                {% endfor %}
+            {% else %}
+                <label>Drop-off 1: <input type="text" name="drop_off_1"></label><br>
+            {% endif %}
+        </div>
+        <button type="button" onclick="addDropoff()">Add Another Drop-off</button><br>
+        <button type="submit">Save Client</button>
+    </form>
+    <script>
+    function addDropoff() {
+        var container = document.getElementById('drop-offs');
+        var inputs = container.getElementsByTagName('input');
+        var n = inputs.length + 1;
+        var div = document.createElement('div');
+        div.innerHTML = '<label>Drop-off ' + n + ': <input type="text" name="drop_off_' + n + '"></label><br>';
+        container.appendChild(div);
+    }
+    </script>
+    <br>
+    <a href="/clients">Back to Clients</a> | <a href="/">Home</a>
+</body>
+</html>
