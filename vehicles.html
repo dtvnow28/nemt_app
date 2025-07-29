@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Vehicles</h2>
+<a class="button" href="/vehicles/new">Add Vehicle</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>License Plate</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for vehicle in vehicles %}
+        <tr>
+            <td>{{ vehicle['vehicle_id'] }}</td>
+            <td>{{ vehicle['make'] }}</td>
+            <td>{{ vehicle['model'] }}</td>
+            <td>{{ vehicle['license_plate'] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

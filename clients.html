@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Clients</h2>
+<a class="button" href="/clients/new">Add Client</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>DOB</th>
+            <th>Insurance</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for client in clients %}
+        <tr>
+            <td>{{ client['client_id'] }}</td>
+            <td>{{ client['first_name'] }} {{ client['last_name'] }}</td>
+            <td>{{ client['dob'] }}</td>
+            <td>{{ client['insurance_carrier'] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NEMT Management App</title>
+    <link rel="stylesheet" href="/static/style.css" />
+    <script src="/static/signature.js"></script>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/clients">Clients</a> |
+        <a href="/drivers">Drivers</a> |
+        <a href="/vehicles">Vehicles</a> |
+        <a href="/trips">Trips</a>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

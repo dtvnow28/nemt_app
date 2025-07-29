@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Trip</h2>
+<form method="post" action="/trips">
+    <label>Client:
+        <select name="client_id" required>
+            <option value="">--Select--</option>
+            {% for c in clients %}
+            <option value="{{ c['client_id'] }}">{{ c['name'] }}</option>
+            {% endfor %}
+        </select>
+    </label><br>
+    <label>Driver:
+        <select name="driver_id" required>
+            <option value="">--Select--</option>
+            {% for d in drivers %}
+            <option value="{{ d['driver_id'] }}">{{ d['name'] }}</option>
+            {% endfor %}
+        </select>
+    </label><br>
+    <label>Vehicle:
+        <select name="vehicle_id" required>
+            <option value="">--Select--</option>
+            {% for v in vehicles %}
+            <option value="{{ v['vehicle_id'] }}">{{ v['name'] }}</option>
+            {% endfor %}
+        </select>
+    </label><br>
+    <label>Date: <input type="date" name="trip_date" required></label><br>
+    <label>Pickup Time: <input type="time" name="pickup_time"></label><br>
+    <label>Drop-off Time: <input type="time" name="dropoff_time"></label><br>
+    <label>Pickup Address: <input type="text" name="pickup_address"></label><br>
+    <label>Pickup ZIP: <input type="text" name="pickup_zip"></label><br>
+    <label>Destination Address: <input type="text" name="destination_address"></label><br>
+    <label>Destination ZIP: <input type="text" name="destination_zip"></label><br>
+    <label>Trip Reason:
+        <select name="trip_reason">
+            <option value="Medical Appointment">Medical Appointment</option>
+            <option value="Dialysis">Dialysis</option>
+            <option value="Therapy">Therapy</option>
+            <option value="Other">Other</option>
+        </select>
+    </label><br>
+    <label>Pickup Type:
+        <select name="pickup_type">
+            <option value="Home">Home</option>
+            <option value="Clinic">Clinic</option>
+            <option value="Dialysis Center">Dialysis Center</option>
+            <option value="Hospital">Hospital</option>
+        </select>
+    </label><br>
+    <label>Drop-off Type:
+        <select name="dropoff_type">
+            <option value="Home">Home</option>
+            <option value="Clinic">Clinic</option>
+            <option value="Dialysis Center">Dialysis Center</option>
+            <option value="Hospital">Hospital</option>
+        </select>
+    </label><br>
+    <label>Round Trip:
+        <input type="checkbox" name="round_trip" value="1">
+    </label><br>
+    <label>Mileage: <input type="number" step="0.1" name="mileage" placeholder="0.0"></label><br>
+    <label>HCPCS Code: <input type="text" name="hcpcs_code" placeholder="A0425"></label><br>
+    <label>Modifier: <input type="text" name="modifier" placeholder="UJ"></label><br>
+    <label>ICD-10 Code: <input type="text" name="icd10_code"></label><br>
+    <label>Prior Authorization Number: <input type="text" name="prior_auth"></label><br>
+    <button type="submit">Create Trip</button>
+</form>
+{% endblock %}

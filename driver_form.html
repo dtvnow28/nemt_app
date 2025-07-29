@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Add Driver</h2>
+<form method="post" action="/drivers">
+    <label>First Name: <input type="text" name="first_name" required></label><br>
+    <label>Last Name: <input type="text" name="last_name" required></label><br>
+    <label>License Number: <input type="text" name="license_number"></label><br>
+    <label>License Expiration: <input type="date" name="license_expiration"></label><br>
+    <label>Employee Number: <input type="text" name="employee_number"></label><br>
+    <label>Phone: <input type="text" name="phone"></label><br>
+    <label>Assigned Vehicle ID (optional): <input type="number" name="assigned_vehicle_id"></label><br>
+    <label>CPR Certification Expiration: <input type="date" name="cpr_cert_expiration"></label><br>
+    <label>First Aid Certification Expiration: <input type="date" name="first_aid_cert_expiration"></label><br>
+    <label>Defensive Driving Certification Expiration: <input type="date" name="defensive_cert_expiration"></label><br>
+    <button type="submit">Create Driver</button>
+</form>
+{% endblock %}

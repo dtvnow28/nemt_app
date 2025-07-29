@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Trips</h2>
+<a class="button" href="/trips/new">Add Trip</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Client</th>
+            <th>Driver</th>
+            <th>Vehicle</th>
+            <th>Date</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for trip in trips %}
+        <tr>
+            <td>{{ trip['trip_id'] }}</td>
+            <td>{{ trip['client_name'] }}</td>
+            <td>{{ trip['driver_name'] }}</td>
+            <td>{{ trip['vehicle_plate'] }}</td>
+            <td>{{ trip['trip_date'] }}</td>
+            <td>{{ trip['trip_reason'] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

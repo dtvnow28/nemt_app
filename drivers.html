@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Drivers</h2>
+<a class="button" href="/drivers/new">Add Driver</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>License #</th>
+            <th>License Expiration</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for driver in drivers %}
+        <tr>
+            <td>{{ driver['driver_id'] }}</td>
+            <td>{{ driver['first_name'] }} {{ driver['last_name'] }}</td>
+            <td>{{ driver['license_number'] }}</td>
+            <td>{{ driver['license_expiration'] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
