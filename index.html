@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Captain Med Go</title>
+    <!-- Link our stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Load SheetJS from CDN for Excel export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <div id="app-container">
+        <!-- Sidebar navigation -->
+        <nav id="sidebar">
+            <h2 class="app-title">Captain Med Go</h2>
+            <ul class="nav-list">
+                <li><button class="nav-btn" id="nav-home">Home</button></li>
+                <li><button class="nav-btn" id="nav-add-client">Add Client</button></li>
+                <li><button class="nav-btn" id="nav-export">Export Excel</button></li>
+            </ul>
+        </nav>
+
+        <!-- Main content area -->
+        <main id="main-content">
+            <!-- Client list view -->
+            <section id="client-list-section" class="view-section">
+                <h1>Clients</h1>
+                <div class="list-controls">
+                    <button id="add-client-btn" class="primary-btn">Add New Client</button>
+                </div>
+                <table id="client-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Insurance</th>
+                            <th>Trips</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="client-table-body">
+                        <!-- Clients will be injected here -->
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Add/edit client view -->
+            <section id="add-client-section" class="view-section hidden">
+                <h1 id="client-form-title">Add Client</h1>
+                <form id="client-form">
+                    <input type="hidden" id="client-id" />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" />
+                        </div>
+                        <div class="form-group">
+                            <label for="ssn">SSN / Medi‑Cal ID</label>
+                            <input type="text" id="ssn" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="mobility-type">Mobility Type</label>
+                            <select id="mobility-type">
+                                <option value="">Select</option>
+                                <option value="Ambulatory">Ambulatory</option>
+                                <option value="Wheelchair">Wheelchair</option>
+                                <option value="Stretcher">Stretcher</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-type">Insurance Type</label>
+                            <input type="text" id="insurance-type" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="authorization-number">Authorization #</label>
+                            <input type="text" id="authorization-number" />
+                        </div>
+                        <div class="form-group">
+                            <label for="broker-name">Broker Name</label>
+                            <input type="text" id="broker-name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency-contact-name">Emergency Contact Name</label>
+                            <input type="text" id="emergency-contact-name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency-contact-phone">Emergency Contact Phone</label>
+                            <input type="tel" id="emergency-contact-phone" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="address">Residential Address</label>
+                            <input type="text" id="address" placeholder="Street address" />
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" />
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" />
+                        </div>
+                        <div class="form-group">
+                            <label for="zip">Zip</label>
+                            <input type="text" id="zip" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="billing-notes">Billing Notes</label>
+                            <textarea id="billing-notes" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="photo-id">Photo ID</label>
+                            <!-- Use capture attribute to enable camera input on mobile devices -->
+                            <input type="file" id="photo-id" accept="image/*" capture="environment" />
+                        </div>
+                        <div class="form-group">
+                            <label for="insurance-photo">Insurance Card</label>
+                            <input type="file" id="insurance-photo" accept="image/*" capture="environment" />
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Save Client</button>
+                        <button type="button" id="cancel-client" class="secondary-btn">Cancel</button>
+                        <button type="button" id="add-trip-btn" class="primary-btn hidden">Add Trip</button>
+                    </div>
+                </form>
+                <!-- List of trips for this client -->
+                <div id="client-trips-container" class="hidden">
+                    <h2>Trips</h2>
+                    <table id="client-trips-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Pick‑up</th>
+                                <th>Drop‑off</th>
+                                <th>Mileage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="client-trips-body">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add trip/drop-off view -->
+            <section id="add-trip-section" class="view-section hidden">
+                <h1>Add Trip</h1>
+                <form id="trip-form">
+                    <input type="hidden" id="trip-client-id" />
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trip-date">Trip Date</label>
+                            <input type="date" id="trip-date" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="pickup-time">Pick‑up Time</label>
+                            <input type="time" id="pickup-time" />
+                        </div>
+                        <div class="form-group">
+                            <label for="dropoff-time">Drop‑off Time</label>
+                            <input type="time" id="dropoff-time" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="pickup-address">Pick‑up Address</label>
+                            <input type="text" id="pickup-address" />
+                        </div>
+                        <div class="form-group form-group-full">
+                            <label for="dropoff-address">Drop‑off Address</label>
+                            <input type="text" id="dropoff-address" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="purpose-of-visit">Purpose of Visit / Drop‑off Info</label>
+                            <input type="text" id="purpose-of-visit" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="driver-name">Driver Name</label>
+                            <input type="text" id="driver-name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-used">Vehicle Used</label>
+                            <input type="text" id="vehicle-used" />
+                        </div>
+                        <div class="form-group">
+                            <label for="mileage">Mileage</label>
+                            <input type="number" id="mileage" min="0" step="0.1" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="round-trip">Round Trip?</label>
+                            <input type="checkbox" id="round-trip" />
+                        </div>
+                        <div class="form-group">
+                            <label for="signature-on-file">Signature on File</label>
+                            <input type="checkbox" id="signature-on-file" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group form-group-full">
+                            <label for="trip-notes">Notes</label>
+                            <textarea id="trip-notes" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="primary-btn">Save Trip</button>
+                        <button type="button" id="cancel-trip" class="secondary-btn">Cancel</button>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Application logic -->
+    <script src="script.js"></script>
+</body>
+</html>

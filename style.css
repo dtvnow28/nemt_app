@@ -1,0 +1,212 @@
+/* Base styling for the Captain Med Go app */
+:root {
+    --bg-color: #ffffff;
+    --primary-color: #0077c2;
+    --secondary-color: #f0f0f0;
+    --text-color: #333333;
+    --border-color: #dddddd;
+    --font-size-base: 18px;
+    --font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Container holds sidebar and main content */
+#app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar styling */
+#sidebar {
+    width: 230px;
+    background-color: var(--bg-color);
+    border-right: 1px solid var(--border-color);
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+#sidebar .app-title {
+    margin: 0 0 20px 0;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+#sidebar .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar .nav-list li {
+    margin-bottom: 10px;
+}
+
+#sidebar .nav-btn {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s;
+}
+
+#sidebar .nav-btn:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+/* Main content styling */
+#main-content {
+    flex: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+}
+
+.view-section {
+    display: none;
+}
+
+.view-section:not(.hidden) {
+    display: block;
+}
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+th {
+    background-color: var(--secondary-color);
+    font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* Buttons */
+.primary-btn {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.primary-btn:hover {
+    background-color: #005fa3;
+}
+
+.secondary-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background-color: #e5e5e5;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Form styling */
+form {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    flex: 1 1 200px;
+}
+
+.form-group-full {
+    flex: 1 1 100%;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.form-group input[type="file"] {
+    padding: 3px;
+}
+
+.form-actions {
+    margin-top: 10px;
+}
+
+.list-controls {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+/* Trip table styling in add client section */
+#client-trips-container {
+    margin-top: 20px;
+}
+
+#client-trips-table {
+    font-size: 0.9rem;
+}
